@@ -1,0 +1,11 @@
+protein_id,protein_name,uniprot_id,gene_symbol,protein_class,molecular_weight_kda,biological_process,cellular_component,disease_association,pathway
+PROT001,Amyloid-beta protein 40,P05067,APP,Neuropeptide,4.3,Amyloid-beta formation,Extracellular space,Alzheimer's disease,Amyloid precursor protein processing
+PROT002,Amyloid-beta protein 42,P05067,APP,Neuropeptide,4.5,Amyloid-beta formation,Extracellular space,Alzheimer's disease,Amyloid precursor protein processing
+PROT003,Tau protein,P10636,MAPT,Microtubule-associated protein,45.9,Microtubule stabilization,Cytoplasm,Tauopathies,Microtubule dynamics
+PROT004,Phospho-Tau (pT181),P10636,MAPT,Modified protein,45.9,Microtubule organization,Cytoplasm,Alzheimer's disease,Tau phosphorylation cascade
+PROT005,Neurofilament light chain,P07196,NEFL,Intermediate filament,61.5,Axon structure,Axon,Neurodegeneration,Neurofilament assembly
+PROT006,GFAP,P14136,GFAP,Intermediate filament,49.9,Astrocyte activation,Cytoskeleton,Neuroinflammation,Astrocyte reactivity
+PROT007,YKL-40,P36222,CHI3L1,Glycoprotein,42.6,Inflammation response,Extracellular space,Neuroinflammation,Inflammatory signaling
+PROT008,Neurogranin,Q92686,NRGN,Calmodulin-binding protein,7.5,Synaptic plasticity,Dendritic spine,Synaptic dysfunction,Calcium signaling
+PROT009,VILIP-1,P37235,VSNL1,Neuronal calcium sensor,22.0,Calcium signaling,Cytoplasm,Neuronal injury,Calcium homeostasis
+PROT010,S100B,P04271,S100B,Calcium-binding protein,10.7,Glial activation,Cytoplasm,Brain injury,Calcium signaling

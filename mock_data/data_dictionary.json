@@ -1,0 +1,540 @@
+{
+  "dataset_info": {
+    "name": "GNPC Alzheimer's Proteomics Mock Dataset",
+    "version": "1.0",
+    "created_date": "2025-11-27",
+    "purpose": "Development and testing mock data",
+    "real_dataset_info": {
+      "total_participants": 18645,
+      "total_samples": 31083,
+      "total_measurements": "~250 million",
+      "cohorts": 23,
+      "proteins_measured": "5000-7000",
+      "platforms": ["SomaScan 5k", "SomaScan 7k"]
+    },
+    "mock_dataset_stats": {
+      "participants": 25,
+      "clinical_assessments": 30,
+      "biosamples": 38,
+      "protein_measurements": 100,
+      "proteins": 10,
+      "cohorts": 3
+    }
+  },
+  "tables": {
+    "participants": {
+      "description": "Demographic and baseline information for study participants",
+      "primary_key": "participant_id",
+      "columns": {
+        "participant_id": {
+          "type": "string",
+          "description": "Unique participant identifier",
+          "example": "GNPC001",
+          "required": true
+        },
+        "cohort_id": {
+          "type": "string",
+          "description": "Study cohort identifier",
+          "foreign_key": "cohort_metadata.cohort_id",
+          "example": "COHORT_A",
+          "required": true
+        },
+        "age": {
+          "type": "integer",
+          "description": "Age at enrollment in years",
+          "range": "64-82",
+          "required": true
+        },
+        "sex": {
+          "type": "string",
+          "description": "Biological sex",
+          "values": ["M", "F"],
+          "required": true
+        },
+        "race": {
+          "type": "string",
+          "description": "Racial category",
+          "values": ["White", "Black", "Asian", "Hispanic", "Other"],
+          "required": true
+        },
+        "ethnicity": {
+          "type": "string",
+          "description": "Ethnic background",
+          "values": ["Hispanic", "Non-Hispanic"],
+          "required": true
+        },
+        "education_years": {
+          "type": "integer",
+          "description": "Years of formal education completed",
+          "range": "10-20",
+          "required": true
+        },
+        "apoe_genotype": {
+          "type": "string",
+          "description": "APOE gene variant combination (major AD risk factor)",
+          "values": ["E2/E2", "E2/E3", "E2/E4", "E3/E3", "E3/E4", "E4/E4"],
+          "notes": "E4 allele associated with increased AD risk",
+          "required": true
+        },
+        "diagnosis": {
+          "type": "string",
+          "description": "Clinical diagnosis category",
+          "values": ["Healthy Control", "MCI", "AD"],
+          "notes": "MCI = Mild Cognitive Impairment, AD = Alzheimer's Disease",
+          "required": true
+        },
+        "diagnosis_date": {
+          "type": "date",
+          "description": "Date of clinical diagnosis",
+          "format": "YYYY-MM-DD",
+          "required": true
+        },
+        "enrollment_date": {
+          "type": "date",
+          "description": "Date participant enrolled in study",
+          "format": "YYYY-MM-DD",
+          "required": true
+        }
+      }
+    },
+    "clinical_assessments": {
+      "description": "Longitudinal clinical assessments and cognitive test scores",
+      "primary_key": "assessment_id",
+      "columns": {
+        "assessment_id": {
+          "type": "string",
+          "description": "Unique assessment identifier",
+          "example": "ASSESS001",
+          "required": true
+        },
+        "participant_id": {
+          "type": "string",
+          "description": "Participant identifier",
+          "foreign_key": "participants.participant_id",
+          "example": "GNPC001",
+          "required": true
+        },
+        "visit_number": {
+          "type": "integer",
+          "description": "Sequential visit number (1=baseline)",
+          "range": "1-3",
+          "required": true
+        },
+        "visit_date": {
+          "type": "date",
+          "description": "Date of clinical assessment",
+          "format": "YYYY-MM-DD",
+          "required": true
+        },
+        "mmse_score": {
+          "type": "integer",
+          "description": "Mini-Mental State Examination score",
+          "range": "0-30",
+          "interpretation": "≥24: normal, 19-23: mild, 10-18: moderate, ≤9: severe impairment",
+          "higher_is_better": true,
+          "required": true
+        },
+        "moca_score": {
+          "type": "integer",
+          "description": "Montreal Cognitive Assessment score",
+          "range": "0-30",
+          "interpretation": "≥26: normal, <26: cognitive impairment",
+          "higher_is_better": true,
+          "required": true
+        },
+        "cdr_global": {
+          "type": "float",
+          "description": "Clinical Dementia Rating global score",
+          "range": "0-3",
+          "interpretation": "0: normal, 0.5: questionable, 1: mild, 2: moderate, 3: severe dementia",
+          "higher_is_worse": true,
+          "required": true
+        },
+        "cdr_sum_boxes": {
+          "type": "float",
+          "description": "CDR sum of boxes (sum of domain ratings)",
+          "range": "0-18",
+          "interpretation": "More sensitive to change than global CDR",
+          "higher_is_worse": true,
+          "required": true
+        },
+        "faq_score": {
+          "type": "integer",
+          "description": "Functional Activities Questionnaire score",
+          "range": "0-30",
+          "interpretation": "≥9: impaired function, higher scores indicate greater impairment",
+          "higher_is_worse": true,
+          "required": true
+        },
+        "npiq_total": {
+          "type": "integer",
+          "description": "Neuropsychiatric Inventory Questionnaire total score",
+          "range": "0-36",
+          "interpretation": "Measures behavioral and psychological symptoms",
+          "higher_is_worse": true,
+          "required": true
+        },
+        "bmi": {
+          "type": "float",
+          "description": "Body Mass Index (kg/m²)",
+          "range": "19.8-27.5",
+          "required": true
+        },
+        "systolic_bp": {
+          "type": "integer",
+          "description": "Systolic blood pressure (mmHg)",
+          "range": "118-150",
+          "required": true
+        },
+        "diastolic_bp": {
+          "type": "integer",
+          "description": "Diastolic blood pressure (mmHg)",
+          "range": "72-94",
+          "required": true
+        },
+        "notes": {
+          "type": "string",
+          "description": "Clinical notes and observations",
+          "required": false
+        }
+      }
+    },
+    "biosamples": {
+      "description": "Information about collected biological samples for proteomics analysis",
+      "primary_key": "sample_id",
+      "columns": {
+        "sample_id": {
+          "type": "string",
+          "description": "Unique sample identifier",
+          "example": "SAMP001",
+          "required": true
+        },
+        "participant_id": {
+          "type": "string",
+          "description": "Participant identifier",
+          "foreign_key": "participants.participant_id",
+          "example": "GNPC001",
+          "required": true
+        },
+        "visit_number": {
+          "type": "integer",
+          "description": "Visit when sample was collected",
+          "range": "1-3",
+          "required": true
+        },
+        "collection_date": {
+          "type": "date",
+          "description": "Date sample was collected",
+          "format": "YYYY-MM-DD",
+          "required": true
+        },
+        "sample_type": {
+          "type": "string",
+          "description": "Type of biological sample",
+          "values": ["Plasma", "Serum", "CSF"],
+          "notes": "CSF = Cerebrospinal Fluid",
+          "required": true
+        },
+        "sample_volume_ml": {
+          "type": "float",
+          "description": "Sample volume in milliliters",
+          "range": "1.7-5.5",
+          "required": true
+        },
+        "storage_location": {
+          "type": "string",
+          "description": "Physical storage location identifier",
+          "example": "Freezer_A1",
+          "required": true
+        },
+        "processing_date": {
+          "type": "date",
+          "description": "Date sample was processed for proteomics",
+          "format": "YYYY-MM-DD",
+          "required": true
+        },
+        "platform": {
+          "type": "string",
+          "description": "Proteomics measurement platform",
+          "values": ["SomaScan"],
+          "required": true
+        },
+        "platform_version": {
+          "type": "string",
+          "description": "Platform version used for measurement",
+          "values": ["5k", "7k"],
+          "notes": "7k measures ~7000 proteins, 5k measures ~5000 proteins",
+          "required": true
+        },
+        "batch_id": {
+          "type": "string",
+          "description": "Processing batch identifier for batch effect correction",
+          "example": "BATCH001",
+          "required": true
+        },
+        "quality_control_status": {
+          "type": "string",
+          "description": "Quality control assessment result",
+          "values": ["Pass", "Borderline", "Fail"],
+          "required": true
+        }
+      }
+    },
+    "protein_measurements": {
+      "description": "Protein abundance measurements from proteomics assays",
+      "primary_key": "measurement_id",
+      "columns": {
+        "measurement_id": {
+          "type": "string",
+          "description": "Unique measurement identifier",
+          "example": "MEAS00001",
+          "required": true
+        },
+        "sample_id": {
+          "type": "string",
+          "description": "Sample identifier",
+          "foreign_key": "biosamples.sample_id",
+          "example": "SAMP001",
+          "required": true
+        },
+        "protein_id": {
+          "type": "string",
+          "description": "Protein identifier",
+          "foreign_key": "protein_annotations.protein_id",
+          "example": "PROT001",
+          "required": true
+        },
+        "protein_name": {
+          "type": "string",
+          "description": "Common protein name",
+          "example": "Amyloid-beta protein 40",
+          "required": true
+        },
+        "uniprot_id": {
+          "type": "string",
+          "description": "UniProt database identifier",
+          "example": "P05067",
+          "required": true
+        },
+        "gene_symbol": {
+          "type": "string",
+          "description": "Gene symbol for the protein",
+          "example": "APP",
+          "required": true
+        },
+        "rfu_value": {
+          "type": "float",
+          "description": "Raw Relative Fluorescence Units from assay",
+          "notes": "Platform-specific raw measurement",
+          "required": true
+        },
+        "normalized_value": {
+          "type": "float",
+          "description": "Normalized protein abundance value",
+          "notes": "Batch-corrected and normalized across samples",
+          "required": true
+        },
+        "z_score": {
+          "type": "float",
+          "description": "Standardized z-score relative to population",
+          "notes": "Mean=0, SD=1 transformation",
+          "required": true
+        },
+        "detection_status": {
+          "type": "string",
+          "description": "Whether protein was reliably detected",
+          "values": ["Detected", "Below Detection Limit"],
+          "required": true
+        }
+      }
+    },
+    "protein_annotations": {
+      "description": "Detailed biological annotations for measured proteins",
+      "primary_key": "protein_id",
+      "columns": {
+        "protein_id": {
+          "type": "string",
+          "description": "Unique protein identifier",
+          "example": "PROT001",
+          "required": true
+        },
+        "protein_name": {
+          "type": "string",
+          "description": "Full protein name",
+          "example": "Amyloid-beta protein 40",
+          "required": true
+        },
+        "uniprot_id": {
+          "type": "string",
+          "description": "UniProt database identifier",
+          "example": "P05067",
+          "notes": "Link to https://www.uniprot.org/",
+          "required": true
+        },
+        "gene_symbol": {
+          "type": "string",
+          "description": "Official gene symbol",
+          "example": "APP",
+          "required": true
+        },
+        "protein_class": {
+          "type": "string",
+          "description": "Functional protein classification",
+          "example": "Neuropeptide",
+          "required": true
+        },
+        "molecular_weight_kda": {
+          "type": "float",
+          "description": "Molecular weight in kiloDaltons",
+          "range": "4.3-61.5",
+          "required": true
+        },
+        "biological_process": {
+          "type": "string",
+          "description": "Primary biological function or process",
+          "example": "Amyloid-beta formation",
+          "required": true
+        },
+        "cellular_component": {
+          "type": "string",
+          "description": "Subcellular localization",
+          "example": "Extracellular space",
+          "required": true
+        },
+        "disease_association": {
+          "type": "string",
+          "description": "Associated diseases or conditions",
+          "example": "Alzheimer's disease",
+          "required": true
+        },
+        "pathway": {
+          "type": "string",
+          "description": "Biological pathway involvement",
+          "example": "Amyloid precursor protein processing",
+          "required": true
+        }
+      }
+    },
+    "cohort_metadata": {
+      "description": "Information about study cohorts",
+      "primary_key": "cohort_id",
+      "columns": {
+        "cohort_id": {
+          "type": "string",
+          "description": "Unique cohort identifier",
+          "example": "COHORT_A",
+          "required": true
+        },
+        "cohort_name": {
+          "type": "string",
+          "description": "Full cohort name",
+          "example": "Memory and Aging Project",
+          "required": true
+        },
+        "institution": {
+          "type": "string",
+          "description": "Lead research institution",
+          "example": "Stanford University",
+          "required": true
+        },
+        "country": {
+          "type": "string",
+          "description": "Country where cohort is located",
+          "example": "USA",
+          "required": true
+        },
+        "enrollment_start": {
+          "type": "date",
+          "description": "Cohort enrollment start date",
+          "format": "YYYY-MM-DD",
+          "required": true
+        },
+        "enrollment_end": {
+          "type": "date",
+          "description": "Cohort enrollment end date",
+          "format": "YYYY-MM-DD",
+          "required": true
+        },
+        "total_participants": {
+          "type": "integer",
+          "description": "Total participants enrolled in cohort",
+          "required": true
+        },
+        "sample_collection_protocol": {
+          "type": "string",
+          "description": "Sample collection methodology",
+          "example": "Standard plasma/CSF collection",
+          "required": true
+        },
+        "study_design": {
+          "type": "string",
+          "description": "Study design type",
+          "values": ["Longitudinal observational", "Case-control", "Cross-sectional"],
+          "required": true
+        },
+        "primary_objective": {
+          "type": "string",
+          "description": "Main research objective of cohort",
+          "example": "Biomarker discovery for early AD detection",
+          "required": true
+        }
+      }
+    }
+  },
+  "relationships": {
+    "participant_to_cohort": {
+      "type": "many_to_one",
+      "from": "participants.cohort_id",
+      "to": "cohort_metadata.cohort_id"
+    },
+    "participant_to_assessments": {
+      "type": "one_to_many",
+      "from": "participants.participant_id",
+      "to": "clinical_assessments.participant_id"
+    },
+    "participant_to_samples": {
+      "type": "one_to_many",
+      "from": "participants.participant_id",
+      "to": "biosamples.participant_id"
+    },
+    "sample_to_measurements": {
+      "type": "one_to_many",
+      "from": "biosamples.sample_id",
+      "to": "protein_measurements.sample_id"
+    },
+    "protein_to_measurements": {
+      "type": "one_to_many",
+      "from": "protein_annotations.protein_id",
+      "to": "protein_measurements.protein_id"
+    }
+  },
+  "key_proteins": {
+    "AD_core_biomarkers": [
+      "PROT001 (Amyloid-beta 40)",
+      "PROT002 (Amyloid-beta 42)",
+      "PROT003 (Tau protein)",
+      "PROT004 (Phospho-Tau pT181)"
+    ],
+    "neurodegeneration_markers": [
+      "PROT005 (Neurofilament light chain)",
+      "PROT008 (Neurogranin)"
+    ],
+    "neuroinflammation_markers": [
+      "PROT006 (GFAP)",
+      "PROT007 (YKL-40)"
+    ],
+    "neuronal_injury_markers": [
+      "PROT009 (VILIP-1)",
+      "PROT010 (S100B)"
+    ]
+  },
+  "usage_notes": {
+    "data_loading": "Use pandas or similar libraries to load CSV files",
+    "joins": "Merge tables using the specified foreign key relationships",
+    "missing_data": "Real dataset will have missing values; mock data is complete",
+    "batch_effects": "Account for batch_id when analyzing protein measurements",
+    "longitudinal_analysis": "Use visit_number and dates to track temporal changes",
+    "protein_selection": "Focus on AD-relevant proteins for initial analysis",
+    "normalization": "Use normalized_value or z_score for cross-sample comparisons"
+  }
+}

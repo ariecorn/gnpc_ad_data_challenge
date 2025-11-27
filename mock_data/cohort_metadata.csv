@@ -1,0 +1,4 @@
+cohort_id,cohort_name,institution,country,enrollment_start,enrollment_end,total_participants,sample_collection_protocol,study_design,primary_objective
+COHORT_A,Memory and Aging Project,Stanford University,USA,2019-01-01,2021-12-31,450,Standard plasma/CSF collection,Longitudinal observational,Biomarker discovery for early AD detection
+COHORT_B,Neurodegeneration Study,Mayo Clinic,USA,2018-06-01,2021-06-30,380,Enhanced biofluid protocol,Case-control,AD progression biomarkers
+COHORT_C,Cognitive Decline Cohort,Johns Hopkins,USA,2017-01-01,2020-12-31,520,Multi-fluid collection,Longitudinal observational,Risk factors and biomarkers for AD
