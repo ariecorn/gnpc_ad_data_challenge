@@ -35,6 +35,18 @@ def main():
     summary = analyzer.get_summary_stats()
     print(summary)
 
+    # Merge and display data
+    print("\n" + "=" * 50)
+    print("Merged Data")
+    print("=" * 50)
+    merged_data = analyzer.merge_data()
+    print(f"\nShape: {merged_data.shape[0]} rows × {merged_data.shape[1]} columns")
+    print(f"\nColumns: {list(merged_data.columns)}")
+    print("\nFirst 10 rows:")
+    print(merged_data.head(10))
+    print("\nData types:")
+    print(merged_data.dtypes)
+
     return 0
 
 
