@@ -64,7 +64,18 @@ class ProteomicsAnalyzer:
         data = data.merge(self.participants, on="participant_id", how="left")
 
         # Merge with protein annotations
-        data = data.merge(self.proteins, on="protein_id", how="left")
+        # Use suffixes to handle overlapping columns, then drop duplicates
+        data = data.merge(
+            self.proteins,
+            on="protein_id",
+            how="left",
+            suffixes=("", "_annotation")
+        )
+
+        # Drop annotation columns if the main columns exist
+        cols_to_drop = [col for col in data.columns if col.endswith("_annotation")]
+        if cols_to_drop:
+            data = data.drop(columns=cols_to_drop)
 
         return data
 
